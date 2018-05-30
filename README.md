@@ -1,8 +1,8 @@
 # Data Model (PHP)
 
-[![Latest Stable Version](https://poser.pugx.org/0quality/php-data-model/v/stable)](https://packagist.org/packages/0quality/php-data-model)
-[![Total Downloads](https://poser.pugx.org/0quality/php-data-model/downloads)](https://packagist.org/packages/0quality/php-data-model)
-[![License](https://poser.pugx.org/0quality/php-data-model/license)](https://packagist.org/packages/0quality/php-data-model)
+[![Latest Stable Version](https://poser.pugx.org/10quality/php-data-model/v/stable)](https://packagist.org/packages/10quality/php-data-model)
+[![Total Downloads](https://poser.pugx.org/10quality/php-data-model/downloads)](https://packagist.org/packages/10quality/php-data-model)
+[![License](https://poser.pugx.org/10quality/php-data-model/license)](https://packagist.org/packages/10quality/php-data-model)
 
 PHP Library that provides generic and scalable Data Models (abstract model class) for any type of data handling.
 
