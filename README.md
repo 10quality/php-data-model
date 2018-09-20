@@ -97,6 +97,14 @@ echo $product->price; // Will echo 29.99
 echo $product->displayPrice; // Will echo $29.99
 ```
 
+You can also init the models with the construct method (passing properties as an array):
+```php
+$product = new Product(['price' => 19.99]);
+
+// Echo property
+echo $product->price; // Will echo 19.99
+```
+
 ### Casting
 
 Before using any casting options, the model needs to define which properties are visible and which are hidden. This is done by listing the visible ones like this:
@@ -113,7 +121,6 @@ class Product extends Model
         'displayPrice',
     ];
 }
-
 ```
 
 Notice that both properties and aliases can be listed. Following the samples above, property `brandName` will stay hidden from casting.
@@ -124,6 +131,90 @@ var_dump($model->toArray()); // To array
 var_dump($model->__toArray()); // To array
 
 echo (string)$model; // To json encoded string
+
+echo $model->toJSON(); // To json encoded string
+echo $model->__toJSON(); // To json encoded string
+
+// You can force JSON casting to be encoded using different options and depth, as described in PHPs documentation
+// http://php.net/manual/en/function.json-encode.php
+echo $model->toJSON(JSON_NUMERIC_CHECK, 600);
+```
+
+### Collections
+
+This package also provides a `Collection` class that will facilitate the use of multiple models or data records.
+
+Collections behave like normal arrays would:
+```php
+use TenQuality\Data\Collection;
+
+$collection = new Collection;
+// Add your models as you would normally do with arrays
+$collection[] = $product;
+$collection[] = $product;
+
+echo count($collection); // Thrown count
+var_dump($collection[0]); // Dumps first model added
+
+// Loop a collection
+foreach ($collection as $product) {
+    // Do your stuff
+}
+```
+
+Collections can be sorted very easily:
+```php
+use TenQuality\Data\Collection;
+
+$collection = new Collection;
+// Add your models as you would normally do with arrays
+$collection[] = new Product(['price' => 99.99]);
+$collection[] = new Product(['price' => 2.99]);
+
+// Loop a collection
+foreach ($collection->sortBy('price') as $product) {
+    echo $product->price; // 2.99 will display first and then 99.99
+}
+
+// Change sorting criteria
+// http://php.net/manual/en/array.constants.php
+print_r($collection->sortBy('price', SORT_NUMERIC));
+```
+
+Data in a collection can be grouped very easily:
+```php
+use TenQuality\Data\Collection;
+
+$collection = new Collection;
+// Add your models as you would normally do with arrays
+$collection[] = new Fruit(['name' => 'Apple', 'color' => 'red']);
+$collection[] = new Fruit(['name' => 'Banana', 'color' => 'yellow']);
+$collection[] = new Fruit(['name' => 'Strawberry', 'color' => 'red']);
+$collection[] = new Fruit(['name' => 'Orange', 'color' => 'orange']);
+
+// Loop a collection
+foreach ($collection->groupBy('color') as $color => $fruits) {
+    // This will group the data in sub arrays based on colors
+    echo $color;
+    foreach ($fruits as $fruit) {
+        echo $fruit; // Fruit in the color grouped by.
+    }
+}
+```
+
+Cast the colleciton like this:
+```php
+var_dump($collection->toArray()); // To array
+var_dump($collection->__toArray()); // To array
+
+echo (string)$collection; // To json encoded string
+
+echo $collection->toJSON(); // To json encoded string
+echo $collection->__toJSON(); // To json encoded string
+
+// You can force JSON casting to be encoded using different options and depth, as described in PHPs documentation
+// http://php.net/manual/en/function.json-encode.php
+echo $collection->toJSON(JSON_NUMERIC_CHECK, 600);
 ```
 
 ## Guidelines

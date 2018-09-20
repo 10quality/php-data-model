@@ -77,4 +77,34 @@ trait CastTrait
         }
         return $value;
     }
+    /**
+     * Returns object as JSON string.
+     * @since 1.0.2
+     * 
+     * @link http://php.net/manual/en/function.json-encode.php
+     * 
+     * @param int $options JSON encoding options. See @link.
+     * @param int $depth   JSON encoding depth. See @link.
+     * 
+     * @return string
+     */
+    public function __toJSON($options = 0, $depth = 512)
+    {
+        return json_encode($this->__toArray(), $options, $depth);
+    }
+    /**
+     * Returns object as JSON string.
+     * @since 1.0.2
+     * 
+     * @link http://php.net/manual/en/function.json-encode.php
+     * 
+     * @param int $options JSON encoding options. See @link.
+     * @param int $depth   JSON encoding depth. See @link.
+     * 
+     * @return string
+     */
+    public function toJSON($options = 0, $depth = 512)
+    {
+        return $this->__toJSON($options, $depth);
+    }
 }

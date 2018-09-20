@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Tests data handling..
+ * Tests data handling.
  *
  * @author Cami M <info@10quality.com>
  * @copyright 10 Quality <info@10quality.com>
  * @package TenQuality\Data\Model
- * @version 1.0.0
+ * @version 1.0.1
  */
 class DataTest extends PHPUnit_Framework_TestCase
 {
@@ -68,5 +68,20 @@ class DataTest extends PHPUnit_Framework_TestCase
         $model = new TestModel;
         // Assert
         $this->assertNull($model->name);
+    }
+    /**
+     * Test construct method.
+     * @since 1.0.1
+     */
+    public function testConstructMethod()
+    {
+        // Prepare
+        $model = new TestModel(['price' => 19.99]);
+        // Assert
+        $this->assertNull($model->name);
+        $this->assertInternalType('float', $model->price);
+        $this->assertInternalType('string', $model->displayPrice);
+        $this->assertEquals(19.99, $model->price);
+        $this->assertEquals('$19.99', $model->displayPrice);
     }
 }

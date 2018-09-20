@@ -6,7 +6,7 @@
  * @author Cami M <info@10quality.com>
  * @copyright 10 Quality <info@10quality.com>
  * @package TenQuality\Data\Model
- * @version 1.0.1
+ * @version 1.0.2
  */
 class CastingTest extends PHPUnit_Framework_TestCase
 {
@@ -139,5 +139,22 @@ class CastingTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('a', $array['children'][3][0]);
         $this->assertEquals('b', $array['children'][3][1]);
         $this->assertEquals('c', $array['children'][3][2]);
+    }
+    /**
+     * JSON casting.
+     * @since 1.0.2
+     */
+    public function testJSONCasting()
+    {
+        // Prepare
+        $model = new TestModel;
+        $model->name = 'Test';
+        $model->price = 19.99;
+        $model->properties = ['price','displayPrice'];
+        // Execute
+        $json = $model->toJSON();
+        // Assert
+        $this->assertInternalType('string', $json);
+        $this->assertEquals('{"price":19.99,"displayPrice":"$19.99"}', $json);
     }
 }
