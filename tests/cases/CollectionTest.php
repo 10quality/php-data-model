@@ -1,5 +1,6 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use TenQuality\Data\Collection;
 
 /**
@@ -10,7 +11,7 @@ use TenQuality\Data\Collection;
  * @package TenQuality\Data\Model
  * @version 1.0.2
  */
-class CollectionTest extends PHPUnit_Framework_TestCase
+class CollectionTest extends TestCase
 {
     /**
      * Tests data handling and array properties.
@@ -42,9 +43,9 @@ class CollectionTest extends PHPUnit_Framework_TestCase
         // Execute
         $array = $collection->toArray();
         // Assert
-        $this->assertInternalType('array', $array);
+        $this->assertIsArray($array);
         $this->assertEquals(1, count($array));
-        $this->assertInternalType('array', $array[0]);
+        $this->assertIsArray($array[0]);
         $this->assertEquals('Test', $array[0]['name']);
     }
     /**
@@ -63,11 +64,11 @@ class CollectionTest extends PHPUnit_Framework_TestCase
         // Execute
         $array = $collection->toArray();
         // Assert
-        $this->assertInternalType('array', $array);
+        $this->assertIsArray($array);
         $this->assertEquals(1, count($array));
-        $this->assertInternalType('array', $array[0]);
+        $this->assertIsArray($array[0]);
         $this->assertEquals(1, count($array[0]));
-        $this->assertInternalType('array', $array[0][0]);
+        $this->assertIsArray($array[0][0]);
         $this->assertEquals('Test', $array[0][0]['name']);
     }
     /**
@@ -85,7 +86,7 @@ class CollectionTest extends PHPUnit_Framework_TestCase
         // Execute
         $string = (string)$collection;
         // Assert
-        $this->assertInternalType('string', $string);
+        $this->assertIsString($string);
         $this->assertEquals('[{"name":"Test"}]', $string);
     }
     /**
@@ -103,7 +104,7 @@ class CollectionTest extends PHPUnit_Framework_TestCase
         // Execute
         $json = $collection->toJSON();
         // Assert
-        $this->assertInternalType('string', $json);
+        $this->assertIsString($json);
         $this->assertEquals('[{"name":"Test"}]', $json);
     }
     /**

@@ -1,5 +1,7 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * Tests casting.
  *
@@ -8,7 +10,7 @@
  * @package TenQuality\Data\Model
  * @version 1.0.2
  */
-class CastingTest extends PHPUnit_Framework_TestCase
+class CastingTest extends TestCase
 {
     /**
      * Array casting.
@@ -24,7 +26,7 @@ class CastingTest extends PHPUnit_Framework_TestCase
         // Execute
         $array = $model->toArray();
         // Assert
-        $this->assertInternalType('array', $array);
+        $this->assertIsArray($array);
         $this->assertArrayHasKey('price', $array);
         $this->assertArrayHasKey('displayPrice', $array);
         $this->assertArrayNotHasKey('name', $array);
@@ -45,7 +47,7 @@ class CastingTest extends PHPUnit_Framework_TestCase
         // Execute
         $json = (string)$model;
         // Assert
-        $this->assertInternalType('string', $json);
+        $this->assertIsString($json);
         $this->assertEquals('{"price":19.99,"displayPrice":"$19.99"}', $json);
     }
     /**
@@ -65,11 +67,11 @@ class CastingTest extends PHPUnit_Framework_TestCase
         // Execute
         $array = $model->toArray();
         // Assert
-        $this->assertInternalType('array', $array);
+        $this->assertIsArray($array);
         $this->assertArrayHasKey('code', $array);
         $this->assertArrayHasKey('agent', $array);
         $this->assertEquals('Test', $array['code']);
-        $this->assertInternalType('array', $array['agent']);
+        $this->assertIsArray($array['agent']);
         $this->assertArrayHasKey('id', $array['agent']);
         $this->assertArrayHasKey('name', $array['agent']);
         $this->assertEquals(7, $array['agent']['id']);
@@ -93,11 +95,11 @@ class CastingTest extends PHPUnit_Framework_TestCase
         // Execute
         $array = $model->toArray();
         // Assert
-        $this->assertInternalType('array', $array);
+        $this->assertIsArray($array);
         $this->assertArrayHasKey('code', $array);
         $this->assertArrayHasKey('sub', $array);
         $this->assertEquals('Parent', $array['code']);
-        $this->assertInternalType('array', $array['sub']);
+        $this->assertIsArray($array['sub']);
         $this->assertArrayHasKey('code', $array['sub']);
         $this->assertArrayHasKey('displayPrice', $array['sub']);
         $this->assertEquals('Child', $array['sub']['code']);
@@ -125,17 +127,17 @@ class CastingTest extends PHPUnit_Framework_TestCase
         // Execute
         $array = $model->toArray();
         // Assert
-        $this->assertInternalType('array', $array);
+        $this->assertIsArray($array);
         $this->assertArrayHasKey('children', $array);
-        $this->assertInternalType('array', $array['children']);
+        $this->assertIsArray($array['children']);
         $this->assertEquals(4, count($array['children']));
         $this->assertEquals(7, $array['children'][0]);
-        $this->assertInternalType('array', $array['children'][1]);
+        $this->assertIsArray($array['children'][1]);
         $this->assertEquals('Model', $array['children'][1]['code']);
-        $this->assertInternalType('array', $array['children'][2]);
+        $this->assertIsArray($array['children'][2]);
         $this->assertEquals(1, $array['children'][2]['id']);
         $this->assertEquals('Object', $array['children'][2]['code']);
-        $this->assertInternalType('array', $array['children'][3]);
+        $this->assertIsArray($array['children'][3]);
         $this->assertEquals('a', $array['children'][3][0]);
         $this->assertEquals('b', $array['children'][3][1]);
         $this->assertEquals('c', $array['children'][3][2]);
@@ -154,7 +156,7 @@ class CastingTest extends PHPUnit_Framework_TestCase
         // Execute
         $json = $model->toJSON();
         // Assert
-        $this->assertInternalType('string', $json);
+        $this->assertIsString($json);
         $this->assertEquals('{"price":19.99,"displayPrice":"$19.99"}', $json);
     }
 }
